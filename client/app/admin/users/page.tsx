@@ -219,7 +219,7 @@ export default function AdminUsersPage() {
                         </Button>
                         <Button
                           size="sm"
-                          variant={user.isActive ? "outline" : "default"}
+                          variant={user.isActive ? "outline" : "primary"}
                           onClick={() => handleToggleUserStatus(user._id)}
                         >
                           {user.isActive ? (
