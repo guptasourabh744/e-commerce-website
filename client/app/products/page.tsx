@@ -27,6 +27,8 @@ interface Product {
   rating: number;
   numReviews: number;
   stock: number;
+  brand: string;
+  featured: boolean;
 }
 
 interface ProductsResponse {

@@ -41,6 +41,11 @@ interface Order {
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
+  discountAmount: number;
+  coupon?: {
+    code: string;
+    discountAmount: number;
+  };
   totalPrice: number;
   isPaid: boolean;
   paidAt?: string;
