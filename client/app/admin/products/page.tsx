@@ -15,7 +15,8 @@ import {
   Trash2, 
   Eye,
   Search,
-  Filter
+  Filter,
+  Package
 } from 'lucide-react';
 import { productsAPI } from '@/lib/api';
 import { useForm } from 'react-hook-form';
