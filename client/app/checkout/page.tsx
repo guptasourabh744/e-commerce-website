@@ -63,7 +63,7 @@ export default function CheckoutPage() {
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [couponLoading, setCouponLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { items, totalPrice } = useCartStore();
   const router = useRouter();
 
@@ -80,12 +80,14 @@ export default function CheckoutPage() {
   });
 
   useEffect(() => {
+    // Wait for auth to finish checking before deciding
+    if (authLoading) return;
     if (!user) {
       router.push('/auth/login');
       return;
     }
     setLoading(false);
-    
+
     // Scroll to top when page loads - more robust for mobile
     const scrollToTop = () => {
       window.scrollTo({
@@ -100,7 +102,7 @@ export default function CheckoutPage() {
     
     // Small delay to ensure page is rendered
     setTimeout(scrollToTop, 100);
-  }, [user, router]);
+  }, [user, authLoading, router]);
 
   useEffect(() => {
     // Pre-fill form with user data if available
@@ -208,8 +210,26 @@ export default function CheckoutPage() {
 
   const totals = calculateTotals();
 
-  if (!user) {
-    return null; // Will redirect to login
+  // While auth check is in progress, or local loading spinner
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 py-6 sm:py-8">
+          <div className="animate-pulse">
+            <div className="h-6 sm:h-8 bg-gray-200 rounded w-1/3 sm:w-1/4 mb-6 sm:mb-8"></div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="h-48 sm:h-64 bg-gray-200 rounded"></div>
+                <div className="h-24 sm:h-32 bg-gray-200 rounded"></div>
+              </div>
+              <div className="h-80 sm:h-96 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   if (loading) {
