@@ -45,15 +45,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const checkAuth = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log('Auth check - Token exists:', !!token);
       if (token) {
         const response = await authAPI.getMe();
+        console.log('Auth check - User data:', response.data.data.user);
         setUser(response.data.data.user);
         setIsLoggedIn(true);
         await syncWithServer();
       } else {
+        console.log('Auth check - No token found');
         setIsLoggedIn(false);
       }
     } catch (error) {
+      console.error('Auth check - Error:', error);
       localStorage.removeItem('token');
       setIsLoggedIn(false);
     } finally {
