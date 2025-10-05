@@ -85,6 +85,21 @@ export default function CheckoutPage() {
       return;
     }
     setLoading(false);
+    
+    // Scroll to top when page loads - more robust for mobile
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      // Fallback for older browsers
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    
+    // Small delay to ensure page is rendered
+    setTimeout(scrollToTop, 100);
   }, [user, router]);
 
   useEffect(() => {
@@ -111,6 +126,18 @@ export default function CheckoutPage() {
     }
 
     setShowPayment(true);
+    
+    // Scroll to top when showing payment form - more robust for mobile
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      // Fallback for older browsers
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
   };
 
   const handlePaymentSuccess = (order: any) => {
@@ -119,6 +146,18 @@ export default function CheckoutPage() {
 
   const handlePaymentCancel = () => {
     setShowPayment(false);
+    
+    // Scroll to top when cancelling payment - more robust for mobile
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      // Fallback for older browsers
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
   };
 
   const handleApplyCoupon = async () => {

@@ -13,7 +13,6 @@ import { productsAPI } from '@/lib/api';
 import { useCartStore, useWishlistStore } from '@/lib/store';
 import { useAuth } from '@/lib/auth-context';
 import { formatPrice } from '@/lib/utils';
-import { ProductModal } from '@/components/ProductModal';
 import { newsletterAPI } from '@/lib/api';
 import toast from 'react-hot-toast';
 
@@ -34,8 +33,6 @@ interface Product {
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [showProductModal, setShowProductModal] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterLoading, setNewsletterLoading] = useState(false);
   const { addItem } = useCartStore();
@@ -91,13 +88,7 @@ export default function HomePage() {
   };
 
   const handleProductClick = (product: Product) => {
-    setSelectedProduct(product);
-    setShowProductModal(true);
-  };
-
-  const closeProductModal = () => {
-    setShowProductModal(false);
-    setSelectedProduct(null);
+    router.push(`/products/${product._id}`);
   };
 
   const handleNewsletterSubscribe = async (e: React.FormEvent) => {
@@ -355,13 +346,6 @@ export default function HomePage() {
       </section>
 
       <Footer />
-
-      {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={showProductModal}
-        onClose={closeProductModal}
-      />
     </div>
   );
 }

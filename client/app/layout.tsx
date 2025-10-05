@@ -9,6 +9,8 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Shopping Website - E-commerce MVP',
   description: 'A modern e-commerce platform built with Next.js and Node.js',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
+  themeColor: '#2563eb',
 }
 
 export default function RootLayout({
@@ -22,12 +24,16 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <Toaster 
-            position="top-right"
+            position="top-center"
             toastOptions={{
               duration: 4000,
               style: {
                 background: '#363636',
                 color: '#fff',
+                fontSize: '14px',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                maxWidth: '90vw',
               },
             }}
           />

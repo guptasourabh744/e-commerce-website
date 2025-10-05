@@ -222,11 +222,26 @@ export default function CartPage() {
                   </div>
                   
                   {user ? (
-                    <Link href="/checkout" className="block">
-                      <Button className="w-full" size="lg">
-                        Proceed to Checkout
-                      </Button>
-                    </Link>
+                    <Button 
+                      className="w-full" 
+                      size="lg"
+                      onClick={() => {
+                        // Navigate to checkout and scroll to top
+                        window.location.href = '/checkout';
+                        setTimeout(() => {
+                          window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: 'smooth'
+                          });
+                          // Fallback for older browsers
+                          document.documentElement.scrollTop = 0;
+                          document.body.scrollTop = 0;
+                        }, 100);
+                      }}
+                    >
+                      Proceed to Checkout
+                    </Button>
                   ) : (
                     <div className="space-y-3">
                       <Link href="/auth/login" className="block">

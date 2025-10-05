@@ -14,7 +14,6 @@ import { useCartStore, useWishlistStore } from '@/lib/store';
 import { useAuth } from '@/lib/auth-context';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/lib/utils';
-import { ProductModal } from '@/components/ProductModal';
 import toast from 'react-hot-toast';
 
 interface Product {
@@ -70,8 +69,6 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('createdAt');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [showProductModal, setShowProductModal] = useState(false);
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -146,13 +143,7 @@ export default function ProductsPage() {
   };
 
   const handleProductClick = (product: Product) => {
-    setSelectedProduct(product);
-    setShowProductModal(true);
-  };
-
-  const closeProductModal = () => {
-    setShowProductModal(false);
-    setSelectedProduct(null);
+    router.push(`/products/${product._id}`);
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -412,13 +403,6 @@ export default function ProductsPage() {
       </div>
 
       <Footer />
-
-      {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={showProductModal}
-        onClose={closeProductModal}
-      />
     </div>
   );
 }

@@ -74,25 +74,29 @@ export const Header: React.FC = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            {/* Wishlist */}
-            <Link href="/wishlist" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-              <Heart className="h-6 w-6" />
-              {wishlistItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {wishlistItems.length}
-                </span>
-              )}
-            </Link>
+            {/* Wishlist - Only show for logged in users on mobile */}
+            {user && (
+              <Link href="/wishlist" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
+                <Heart className="h-6 w-6" />
+                {wishlistItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistItems.length}
+                  </span>
+                )}
+              </Link>
+            )}
 
-            {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-              <ShoppingCart className="h-6 w-6" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+            {/* Cart - Only show for logged in users on mobile */}
+            {user && (
+              <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
+                <ShoppingCart className="h-6 w-6" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {/* User Menu */}
             {user ? (
